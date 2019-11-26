@@ -8,140 +8,161 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal" >
+        android:layout_marginTop="15dp"
+        android:orientation="vertical" >
 
-        <RadioGroup
-            android:id="@+id/radioGroup1"
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:checkedButton="@+id/jan"
-            android:orientation="horizontal" >
+            android:scrollbars="none" >
 
-            <RadioButton
-                android:id="@+id/jan"
-                style="?android:attr/textAppearanceButton"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/tab_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/jan"/>
-            <RadioButton
-                android:id="@+id/feb"
-                style="?android:attr/textAppearanceButton"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/tab_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/feb" />
+            <RadioGroup
+                android:id="@+id/radioGroup1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/jan"
+                android:orientation="horizontal" >
 
-            <RadioButton
-                android:id="@+id/mar"
-                style="?android:attr/textAppearanceButton"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/tab_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/mar"/>
-            <RadioButton
-                android:id="@+id/apr"
-                style="?android:attr/textAppearanceButton"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/tab_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:text= "@string/apr"/>
-            <RadioButton
-                android:id="@+id/may"
-                style="?android:attr/textAppearanceButton"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/tab_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/may"/>
-            <RadioButton
-                android:id="@+id/jun"
-                style="?android:attr/textAppearanceButton"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/tab_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/jun"/>
-            <RadioButton
-                android:id="@+id/jul"
-                style="?android:attr/textAppearanceButton"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/tab_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/jul"/>
+                <RadioButton
+                    android:id="@+id/jan"
+                    style="?android:attr/textAppearanceButton"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/tab_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/jan"/>
+                <RadioButton
+                    android:id="@+id/feb"
+                    style="?android:attr/textAppearanceButton"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/tab_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/feb" />
 
-            <RadioButton
-                android:id="@+id/aug"
-                style="?android:attr/textAppearanceButton"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/tab_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/aug"/>
+                <RadioButton
+                    android:id="@+id/mar"
+                    style="?android:attr/textAppearanceButton"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/tab_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/mar"/>
+                <RadioButton
+                    android:id="@+id/apr"
+                    style="?android:attr/textAppearanceButton"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/tab_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text= "@string/apr"/>
+                <RadioButton
+                    android:id="@+id/may"
+                    style="?android:attr/textAppearanceButton"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/tab_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/may"/>
+                <RadioButton
+                    android:id="@+id/jun"
+                    style="?android:attr/textAppearanceButton"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/tab_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/jun"/>
+                <RadioButton
+                    android:id="@+id/jul"
+                    style="?android:attr/textAppearanceButton"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/tab_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/jul"/>
 
-            <RadioButton
-                android:id="@+id/sep"
-                style="?android:attr/textAppearanceButton"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/tab_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/sep"/>
-            <RadioButton
-                android:id="@+id/oct"
-                style="?android:attr/textAppearanceButton"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/tab_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/oct"/>
-            <RadioButton
-                android:id="@+id/nov"
-                style="?android:attr/textAppearanceButton"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/tab_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/nov"/>
+                <RadioButton
+                    android:id="@+id/aug"
+                    style="?android:attr/textAppearanceButton"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/tab_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/aug"/>
 
-            <RadioButton
-                android:id="@+id/dec"
-                style="?android:attr/textAppearanceButton"
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:layout_margin="2dp"
-                android:background="@drawable/tab_selector"
-                android:button="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/dec"/>
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/sep"
+                    style="?android:attr/textAppearanceButton"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/tab_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/sep"/>
+                <RadioButton
+                    android:id="@+id/oct"
+                    style="?android:attr/textAppearanceButton"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/tab_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/oct"/>
+                <RadioButton
+                    android:id="@+id/nov"
+                    style="?android:attr/textAppearanceButton"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/tab_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/nov"/>
+
+                <RadioButton
+                    android:id="@+id/dec"
+                    style="?android:attr/textAppearanceButton"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="2dp"
+                    android:background="@drawable/tab_selector"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/dec"/>
+            </RadioGroup>
+        </HorizontalScrollView>
+
+        <GridView
+            android:id="@+id/gridView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:clickable="false"
+            android:focusable="false"
+            android:listSelector="#00000000"
+            android:numColumns="7" >
+        </GridView>
+
     </LinearLayout>
 
 </FrameLayout>

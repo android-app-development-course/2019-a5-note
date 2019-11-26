@@ -11,12 +11,25 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
+
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
+import com.tomato830.note_fjm.ContributionChart.GridViewAdapter;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     DrawerLayout drawerLayout;
+    Fragment tabFragment,checkinFragment;
+
+    //Create a gridviewAdapter object
+    public GridViewAdapter gridAdapter;
+    //create a gridview
+    public GridView contibutionView;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -33,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
+        checkinFragment=new checkIN();
+        getSupportFragmentManager().beginTransaction().replace(R.id.tabFragment,checkinFragment).commit();
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -48,4 +64,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
 }
