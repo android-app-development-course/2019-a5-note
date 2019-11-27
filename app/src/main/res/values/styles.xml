@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SingleGradient">
+        <item name="android:background">@drawable/tabselector</item>
+        <item name="android:text">@android:style/TextAppearance.Small</item>
+    </style>
+
 </resources>
