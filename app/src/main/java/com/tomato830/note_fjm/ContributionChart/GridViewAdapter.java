@@ -16,6 +16,12 @@ import com.tomato830.note_fjm.R;
 import java.util.ArrayList;
 
 public class GridViewAdapter extends ArrayAdapter {
+
+    static class ViewHolder {
+        LinearLayout griditemlayout;
+        TextView textval;
+    }
+
     private Context context;
     int resid;
 
@@ -58,25 +64,25 @@ public class GridViewAdapter extends ArrayAdapter {
 
         if (position >= 0 && position <= 6) {
             switch (position) {
-                case 0:
+                case 6:
                     holder.textval.setText(R.string.sun);
                     break;
-                case 1:
+                case 0:
                     holder.textval.setText(R.string.mon);
                     break;
-                case 2:
+                case 1:
                     holder.textval.setText(R.string.tue);
                     break;
-                case 3:
+                case 2:
                     holder.textval.setText(R.string.wed);
                     break;
-                case 4:
+                case 3:
                     holder.textval.setText(R.string.thu);
                     break;
-                case 5:
+                case 4:
                     holder.textval.setText(R.string.fri);
                     break;
-                case 6:
+                case 5:
                     holder.textval.setText(R.string.sat);
                     break;
             }
@@ -87,7 +93,7 @@ public class GridViewAdapter extends ArrayAdapter {
             // value passed.
 
 
-
+            //这不是日历上的日子,跳过
             if (percentval == -1) {
                 holder.textval.setText("");
 
@@ -100,7 +106,7 @@ public class GridViewAdapter extends ArrayAdapter {
             if (percentval == 0) {
 
                 holder.textval.setText("");
-                holder.textval.setBackgroundColor(Color.WHITE);
+                holder.textval.setBackgroundColor(Color.GRAY);
 
             } else if (percentval >= 1 && percentval <= 20) {
 
@@ -131,9 +137,6 @@ public class GridViewAdapter extends ArrayAdapter {
         return row;
     }
 
-    static class ViewHolder {
-        LinearLayout griditemlayout;
-        TextView textval;
-    }
+
 
 }

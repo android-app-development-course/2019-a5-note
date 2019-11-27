@@ -89,41 +89,43 @@ public class TaskCalculator {
 
         // Creating and setting a calender object
         ArrayList<Integer> val = new ArrayList<Integer>();
-
         val.clear();
+
+        //the first day of this month
         Calendar cal = new GregorianCalendar();
         cal.set(Calendar.DATE, 1);
         cal.set(Calendar.MONTH, month);
         cal.set(Calendar.YEAR, year);
 
         // Setting first day of the month
+        //前七天用来标识星期几
         switch (cal.get(Calendar.DAY_OF_WEEK)) {
             case Calendar.SUNDAY:
-                firstday = 8;
+                firstday = 14;
                 System.out.println("Sunday " + firstday);
                 break;
             case Calendar.MONDAY:
-                firstday = 9;
+                firstday = 8;
                 System.out.println("Monday " + firstday);
                 break;
             case Calendar.TUESDAY:
-                firstday = 10;
+                firstday = 9;
                 System.out.println("Tuesday " + firstday);
                 break;
             case Calendar.WEDNESDAY:
-                firstday = 11;
+                firstday = 10;
                 System.out.println("Wednesday " + firstday);
                 break;
             case Calendar.THURSDAY:
-                firstday = 12;
+                firstday = 11;
                 System.out.println("Thursday " + firstday);
                 break;
             case Calendar.FRIDAY:
-                firstday = 13;
+                firstday = 12;
                 System.out.println("Friday " + firstday);
                 break;
             case Calendar.SATURDAY:
-                firstday = 14;
+                firstday = 13;
                 System.out.println("Saturday " + firstday);
                 break;
         }

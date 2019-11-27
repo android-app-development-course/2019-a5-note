@@ -456,7 +456,7 @@ public class checkIN extends Fragment {
         //Pass the context, activity, monthly flag
 
         t = new TaskCalculator(getContext(), this,
-                true);
+                false);
 
 
         //Use this method to calculate and show the contributions for the whole year.
