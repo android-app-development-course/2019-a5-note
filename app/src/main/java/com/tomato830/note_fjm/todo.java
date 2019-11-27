@@ -47,7 +47,7 @@ public class todo extends Fragment {
         super.onActivityCreated(savedInstanceState);
         recyclerView = getActivity().findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        //recyclerView.setAdapter(new NormalRecyclerViewAdapter(getContext()));
+        recyclerView.setAdapter(new myRVAdapter(getContext()));
     }
 
 
