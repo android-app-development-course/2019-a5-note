@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,20 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="15dp"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none" >
+            android:scrollbars="none">
 
             <RadioGroup
                 android:id="@+id/radioGroup1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:checkedButton="@+id/jan"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/jan"
@@ -33,7 +34,8 @@
                     android:background="@drawable/tab_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
-                    android:text="@string/jan"/>
+                    android:text="@string/jan" />
+
                 <RadioButton
                     android:id="@+id/feb"
                     style="?android:attr/textAppearanceButton"
@@ -54,7 +56,8 @@
                     android:background="@drawable/tab_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
-                    android:text="@string/mar"/>
+                    android:text="@string/mar" />
+
                 <RadioButton
                     android:id="@+id/apr"
                     style="?android:attr/textAppearanceButton"
@@ -64,7 +67,8 @@
                     android:background="@drawable/tab_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
-                    android:text= "@string/apr"/>
+                    android:text="@string/apr" />
+
                 <RadioButton
                     android:id="@+id/may"
                     style="?android:attr/textAppearanceButton"
@@ -74,7 +78,8 @@
                     android:background="@drawable/tab_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
-                    android:text="@string/may"/>
+                    android:text="@string/may" />
+
                 <RadioButton
                     android:id="@+id/jun"
                     style="?android:attr/textAppearanceButton"
@@ -84,7 +89,8 @@
                     android:background="@drawable/tab_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
-                    android:text="@string/jun"/>
+                    android:text="@string/jun" />
+
                 <RadioButton
                     android:id="@+id/jul"
                     style="?android:attr/textAppearanceButton"
@@ -94,7 +100,7 @@
                     android:background="@drawable/tab_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
-                    android:text="@string/jul"/>
+                    android:text="@string/jul" />
 
                 <RadioButton
                     android:id="@+id/aug"
@@ -105,7 +111,7 @@
                     android:background="@drawable/tab_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
-                    android:text="@string/aug"/>
+                    android:text="@string/aug" />
 
                 <RadioButton
                     android:id="@+id/sep"
@@ -116,7 +122,8 @@
                     android:background="@drawable/tab_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
-                    android:text="@string/sep"/>
+                    android:text="@string/sep" />
+
                 <RadioButton
                     android:id="@+id/oct"
                     style="?android:attr/textAppearanceButton"
@@ -126,7 +133,8 @@
                     android:background="@drawable/tab_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
-                    android:text="@string/oct"/>
+                    android:text="@string/oct" />
+
                 <RadioButton
                     android:id="@+id/nov"
                     style="?android:attr/textAppearanceButton"
@@ -136,7 +144,7 @@
                     android:background="@drawable/tab_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
-                    android:text="@string/nov"/>
+                    android:text="@string/nov" />
 
                 <RadioButton
                     android:id="@+id/dec"
@@ -147,22 +155,76 @@
                     android:background="@drawable/tab_selector"
                     android:button="@android:color/transparent"
                     android:gravity="center"
-                    android:text="@string/dec"/>
+                    android:text="@string/dec" />
+
             </RadioGroup>
+
         </HorizontalScrollView>
 
-        <GridView
+        <com.tomato830.note_fjm.ForScrollView.GridViewForScrollView
             android:id="@+id/gridView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:clickable="false"
             android:focusable="false"
+            android:gravity="center"
             android:listSelector="#00000000"
-            android:numColumns="7" >
-        </GridView>
+            android:numColumns="7"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="15dp"
+            app:cardBackgroundColor="@color/blueShade1"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="9月25号"
+                    android:textSize="30dp" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/deadline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="今日截至事件:3"
+                        android:textColor="#000000"
+                        android:textSize="35dp" />
+
+                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                        android:id="@+id/checkIn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/deadline"
+                        android:layout_alignParentRight="true"
+                        android:text=" 签到 "
+                        android:textSize="35dp"
+                        app:qmui_backgroundColor="@color/blueShade2"
+                        app:qmui_radius="15dp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
-</FrameLayout>
+</ScrollView>

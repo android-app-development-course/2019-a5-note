@@ -63,6 +63,8 @@ public class checkIN extends Fragment {
         ArrayList<Integer> novVal = new ArrayList<Integer>();
         ArrayList<Integer> decVal = new ArrayList<Integer>();
 
+        //模拟的数据后期删除
+        //模拟打卡记录
         {
             janVal.add(0);
             janVal.add(0);
