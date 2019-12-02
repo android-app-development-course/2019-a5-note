@@ -8,18 +8,17 @@
         android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="1dp"
         app:cardBackgroundColor="@color/yellow">
 
         <TextView
             android:id="@+id/cardtext"
-            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
             android:text="item"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

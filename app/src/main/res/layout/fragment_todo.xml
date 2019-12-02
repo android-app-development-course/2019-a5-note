@@ -6,19 +6,69 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".todo">
 
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <!--还未实现点击选择排序方法-->
+    <RelativeLayout
+        android:id="@+id/todo_sort_relativelayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blueShade2"
+        android:clickable="true"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="排序"
+            android:textColor="@color/strokeColor"
+            android:textSize="20sp"
+            android:layout_toLeftOf="@id/todo_sort"
+
+            />
+
+        <ImageButton
+            android:id="@+id/todo_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sort_yello32"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            />
+
+
+    </RelativeLayout>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scrollbars="vertical"
+        />
+
+
+</LinearLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/Btn_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="15dp"
+        android:src="@drawable/increase_blue"
+        app:backgroundTint="@color/yellow"
 
         />
 
-<!--<<<<<<< HEAD -->
     <!-- TODO: Update blank fragment layout -->
-<!--=======
 
->>>>>>> 9001deb69729055874463902735f07944f31492b
--->
 
 </FrameLayout>
