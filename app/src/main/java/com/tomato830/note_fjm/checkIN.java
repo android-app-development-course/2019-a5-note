@@ -472,7 +472,6 @@ public class checkIN extends Fragment {
 
     public void monthlystat(int flag, ArrayList<Integer> a) {
 
-
         if (flag == 0) {
 
             //Define the gridViewAdapter

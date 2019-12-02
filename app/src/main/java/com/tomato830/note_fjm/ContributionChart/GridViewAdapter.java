@@ -105,33 +105,34 @@ public class GridViewAdapter extends ArrayAdapter {
             //Adjust the percentval/color according to the requirements
             if (percentval == 0) {
 
+                //white->grey->greenShade1
                 holder.textval.setText("");
-                holder.textval.setBackgroundColor(Color.GRAY);
+                holder.textval.setBackgroundResource(R.color.greenShade1);
 
             } else if (percentval >= 1 && percentval <= 20) {
 
                 holder.textval.setText("");
-                holder.textval.setBackgroundResource(R.color.blueShade1);
+                holder.textval.setBackgroundResource(R.color.greenShade2);
 
             } else if (percentval >= 21 && percentval <= 40) {
 
                 holder.textval.setText("");
-                holder.textval.setBackgroundResource(R.color.blueShade2);
+                holder.textval.setBackgroundResource(R.color.greenShade3);
 
             } else if (percentval >= 41 && percentval <= 60) {
 
                 holder.textval.setText("");
-                holder.textval.setBackgroundResource(R.color.blueShade3);
+                holder.textval.setBackgroundResource(R.color.greenShade4);
 
             } else if (percentval >= 61 && percentval <= 80) {
 
                 holder.textval.setText("");
-                holder.textval.setBackgroundResource(R.color.blueShade4);
+                holder.textval.setBackgroundResource(R.color.greenShade5);
 
             } else if (percentval >= 81 && percentval <= 100) {
 
                 holder.textval.setText("");
-                holder.textval.setBackgroundResource(R.color.blueShade5);
+                holder.textval.setBackgroundResource(R.color.greenShade6);
             }
         }
         return row;

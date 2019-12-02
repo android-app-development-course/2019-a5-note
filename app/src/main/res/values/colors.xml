@@ -5,7 +5,8 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="yellow">#FFFFE0</color>
-
+    <color name="deepYellow">#F1C40F</color>
+    <color name="checkInButton">#AED6F1</color>
 
     <color name="blueShade1">#97b9dc</color>
     <color name="blueShade2">#5e9ec9 </color>
@@ -13,11 +14,20 @@
     <color name="blueShade4">#234e68 </color>
     <color name="blueShade5">#10212f</color>
     <color name="blueShade6">#162a42 </color>
+
+
     <color name="checkedStartColor">#909090</color>
     <color name="endColor">#EEEEEE</color>
     <color name="downPressStartColor">#FF57BEFF</color>
     <color name="strokeColor">#000000</color>
     <color name="normalStartColor">#FFD9D9D9</color>
     <color name="grey">#ebedf0</color>
+
+    <color name="greenShade1">#ebedf0</color>
+    <color name="greenShade2">#c6e48b</color>
+    <color name="greenShade3">#7bc96f</color>
+    <color name="greenShade4">#39B33B</color>
+    <color name="greenShade5">#239a3b</color>
+    <color name="greenShade6">#196127</color>
 
 </resources>

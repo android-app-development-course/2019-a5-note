@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" >
-     <gradient
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--渐变色-->
+    <gradient
         android:angle="@string/gradientAngle"
         android:endColor="@color/endColor"
-        android:startColor="@color/downPressStartColor" /> 
-
+        android:startColor="@color/downPressStartColor" />
+    <!--圆角弧度-->
     <corners android:radius="@dimen/cornerAngle" />
-
+    <!--边框-->
     <stroke
         android:width="@dimen/strokeWidth"
         android:color="@color/strokeColor" />

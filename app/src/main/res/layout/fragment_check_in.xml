@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/yellow"
     tools:context=".checkIN">
 
     <LinearLayout
@@ -176,7 +177,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_margin="15dp"
-            app:cardBackgroundColor="@color/blueShade1"
+            app:cardBackgroundColor="@color/deepYellow"
             app:cardCornerRadius="10dp"
             app:cardElevation="15dp">
 
@@ -204,7 +205,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:text="今日截至事件:3"
+                        android:layout_marginLeft="2dp"
+                        android:text="今日截止事件:3"
                         android:textColor="#000000"
                         android:textSize="35dp" />
 
@@ -216,7 +218,7 @@
                         android:layout_alignParentRight="true"
                         android:text=" 签到 "
                         android:textSize="35dp"
-                        app:qmui_backgroundColor="@color/blueShade2"
+                        app:qmui_backgroundColor="@color/downPressStartColor"
                         app:qmui_radius="15dp" />
 
                 </RelativeLayout>
