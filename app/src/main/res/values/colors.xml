@@ -20,6 +20,7 @@
     <color name="endColor">#EEEEEE</color>
     <color name="downPressStartColor">#FF57BEFF</color>
     <color name="strokeColor">#000000</color>
+    <color name="strokeColors">#CFCFCF</color>
     <color name="normalStartColor">#FFD9D9D9</color>
     <color name="grey">#ebedf0</color>
 
