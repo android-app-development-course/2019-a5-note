@@ -45,7 +45,7 @@ public class myRVAdapter extends RecyclerView.Adapter<myRVAdapter.myTVHolder> {
 
         public myTVHolder(@NonNull View itemView) {
             super(itemView);
-            mTextview = (TextView) itemView.findViewById(R.id.cardtext);
+            mTextview = (TextView) itemView.findViewById(R.id.carditem_title);
         }
 
 

@@ -63,9 +63,9 @@ public class todo extends Fragment {
         recyclerView = getActivity().findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new myRVAdapter(getContext()));
-        stringIntegerHashMap.put(SpacesItemDecoration.TOP_DECORATION,10);
+        stringIntegerHashMap.put(SpacesItemDecoration.TOP_DECORATION,15);
         recyclerView.addItemDecoration(new SpacesItemDecoration(stringIntegerHashMap));
-        stringIntegerHashMap.put(SpacesItemDecoration.BOTTOM_DECORATION,10);
+        stringIntegerHashMap.put(SpacesItemDecoration.BOTTOM_DECORATION,15);
         recyclerView.addItemDecoration(new SpacesItemDecoration(stringIntegerHashMap));
 
         todo_sort_relativelayout = getActivity().findViewById(R.id.todo_sort_relativelayout);
