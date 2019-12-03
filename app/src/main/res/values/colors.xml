@@ -6,6 +6,7 @@
 
     <color name="yellow">#FFFFE0</color>
     <color name="deepYellow">#F1C40F</color>
+    <color name="lightYellow">#FAE779</color>
     <color name="checkInButton">#AED6F1</color>
     <color name="checkInButtonPressed">#2E86C1</color>
 
@@ -21,6 +22,7 @@
     <color name="endColor">#EEEEEE</color>
     <color name="downPressStartColor">#FF57BEFF</color>
     <color name="strokeColor">#000000</color>
+    <color name="strokeColors">#CFCFCF</color>
     <color name="normalStartColor">#FFD9D9D9</color>
     <color name="grey">#ebedf0</color>
 
