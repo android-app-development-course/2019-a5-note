@@ -15,7 +15,7 @@
             android:id="@+id/finished_sort_relativelayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/lightYellow"
+            android:background="@color/yellow"
             android:clickable="true"
 
             >
@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:text="排序"
                 android:textColor="@color/strokeColor"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:layout_toLeftOf="@id/finished_sort"
 
                 />
@@ -33,10 +33,9 @@
                 android:id="@+id/finished_sort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/sort_yello32"
                 android:layout_alignParentRight="true"
                 android:background="@android:color/transparent"
-                />
+                android:src="@drawable/sort_tag_finished" />
 
         </RelativeLayout>
 
