@@ -15,7 +15,7 @@
             android:id="@+id/finished_sort_relativelayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blueShade3"
+            android:background="@color/strokeColors"
             android:clickable="true"
 
             >
@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="排序"
-                android:textColor="@color/strokeColors"
+                android:textColor="@color/strokeColor"
                 android:textSize="20sp"
                 android:layout_toLeftOf="@id/finished_sort"
 
