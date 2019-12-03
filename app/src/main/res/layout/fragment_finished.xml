@@ -15,7 +15,7 @@
             android:id="@+id/finished_sort_relativelayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/strokeColors"
+            android:background="@color/lightYellow"
             android:clickable="true"
 
             >
