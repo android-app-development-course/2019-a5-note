@@ -7,6 +7,7 @@
     <color name="yellow">#FFFFE0</color>
     <color name="deepYellow">#F1C40F</color>
     <color name="checkInButton">#AED6F1</color>
+    <color name="checkInButtonPressed">#2E86C1</color>
 
     <color name="blueShade1">#97b9dc</color>
     <color name="blueShade2">#5e9ec9 </color>

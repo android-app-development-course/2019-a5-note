@@ -192,7 +192,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="9月25号"
+                    android:text="12月4号"
                     android:textSize="30dp" />
 
 
@@ -205,21 +205,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_alignBottom="@+id/checkInButton"
                         android:layout_marginLeft="2dp"
                         android:text="今日截止事件:3"
                         android:textColor="#000000"
                         android:textSize="35dp" />
 
-                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                        android:id="@+id/checkIn"
+                    <Button
+                        android:id="@+id/checkInButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/deadline"
                         android:layout_alignParentRight="true"
                         android:text=" 签到 "
-                        android:textSize="35dp"
-                        app:qmui_backgroundColor="@color/downPressStartColor"
-                        app:qmui_radius="15dp" />
+                        android:textSize="25dp"
+                        android:clickable="true"
+                        android:background="@drawable/check_in_selector"/>
 
                 </RelativeLayout>
 

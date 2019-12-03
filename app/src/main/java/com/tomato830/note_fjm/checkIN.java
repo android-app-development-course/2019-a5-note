@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.tomato830.note_fjm.ContributionChart.GridViewAdapter;
 import com.tomato830.note_fjm.ContributionChart.TaskCalculator;
@@ -31,6 +33,8 @@ public class checkIN extends Fragment {
     //Taskcalculator object
     TaskCalculator t;
 
+    Button checkInButton;
+
 
     public checkIN() {
         // Required empty public constructor
@@ -49,6 +53,14 @@ public class checkIN extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         contibutionView = (GridView) getActivity().findViewById(R.id.gridView1);
+
+        checkInButton=(Button) getActivity().findViewById(R.id.checkInButton);
+        checkInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"签到成功!",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         ArrayList<Integer> janVal = new ArrayList<Integer>();
         ArrayList<Integer> febVal = new ArrayList<Integer>();
