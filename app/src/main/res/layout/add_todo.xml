@@ -42,12 +42,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/task32"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="事项:"
+            android:layout_gravity="center_vertical"
             android:textColor="@color/strokeColor"
             android:textSize="20sp"
 
@@ -56,7 +58,7 @@
             android:id="@+id/ed_todo_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="输入您的待办事项"
+            android:hint="输入您的待办事项"
             android:textSize="20sp"
             />
 
@@ -72,12 +74,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/mark32"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="标签:"
+            android:layout_gravity="center_vertical"
             android:textColor="@color/strokeColor"
             android:textSize="20sp"
 
@@ -86,7 +90,7 @@
             android:id="@+id/ed_todo_mark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="输入您的标签"
+            android:hint="输入您的标签"
             android:textSize="20sp"
             />
 
@@ -103,11 +107,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/date32" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:text="截止日期:"
             android:textColor="@color/strokeColor"
             android:textSize="20sp"
@@ -118,8 +124,9 @@
             android:id="@+id/tx_todo_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:baselineAligned="false"
-            android:text="选择您的日期"
+            android:hint="选择您的日期"
 
             android:textSize="20sp" />
 
@@ -136,19 +143,21 @@
                 android:layout_marginLeft="15dp"
                 />
 
-            <CheckBox
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="设置提醒"
+                android:layout_gravity="center_vertical"
+                android:text="设置提醒:"
                 android:textSize="20sp"
                 android:textColor="@color/strokeColor"
                 />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:clickable="true" />
 
         </LinearLayout>
 
@@ -159,7 +168,6 @@
     android:id="@+id/calendar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     />
     <LinearLayout
         android:layout_width="match_parent"

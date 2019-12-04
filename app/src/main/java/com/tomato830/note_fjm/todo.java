@@ -59,13 +59,15 @@ public class todo extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
+        int d=10;
+
         super.onActivityCreated(savedInstanceState);
         recyclerView = getActivity().findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(new myRVAdapter(getContext()));
-        stringIntegerHashMap.put(SpacesItemDecoration.TOP_DECORATION,15);
+        stringIntegerHashMap.put(SpacesItemDecoration.TOP_DECORATION,d);
         recyclerView.addItemDecoration(new SpacesItemDecoration(stringIntegerHashMap));
-        stringIntegerHashMap.put(SpacesItemDecoration.BOTTOM_DECORATION,15);
+        stringIntegerHashMap.put(SpacesItemDecoration.BOTTOM_DECORATION,d);
         recyclerView.addItemDecoration(new SpacesItemDecoration(stringIntegerHashMap));
 
         todo_sort_relativelayout = getActivity().findViewById(R.id.todo_sort_relativelayout);

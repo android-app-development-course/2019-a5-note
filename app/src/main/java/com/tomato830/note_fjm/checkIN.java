@@ -58,6 +58,8 @@ public class checkIN extends Fragment {
         checkInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkInButton.setText("已签到");
+                checkInButton.setClickable(false);
                 Toast.makeText(getContext(),"签到成功!",Toast.LENGTH_SHORT).show();
             }
         });

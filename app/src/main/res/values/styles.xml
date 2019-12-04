@@ -21,7 +21,7 @@
     </style>
     <!--popMenu的Style-->
     <style name="popmenuStyle" parent="@android:style/Widget.PopupMenu">
-        <item name="android:popupBackground">@color/blueShade2</item><!-- popMenu的背景色-->
+        <item name="android:popupBackground">@color/deepYellow</item><!-- popMenu的背景色-->
     </style>
     <!--popmenu的字体颜色-->
     <style name="popmeuText">

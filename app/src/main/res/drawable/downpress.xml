@@ -4,7 +4,7 @@
     <gradient
         android:angle="@string/gradientAngle"
         android:endColor="@color/endColor"
-        android:startColor="@color/downPressStartColor" />
+        android:startColor="@color/greenShade3" />
     <!--圆角弧度-->
     <corners android:radius="@dimen/cornerAngle" />
     <!--边框-->
