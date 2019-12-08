@@ -6,4 +6,4 @@ DailyNote
 
 #### DEMO
 
-![](.\docs\UIdemo.GIF)
+.\docs\UIdemo.GIF
