@@ -31,8 +31,7 @@
             android:text="排序"
             android:textColor="@color/strokeColor"
             android:textSize="20sp"
-            android:layout_toLeftOf="@id/todo_sort"
-            />
+            android:layout_toLeftOf="@id/todo_sort" />
 
         <ImageButton
             android:id="@+id/todo_sort"

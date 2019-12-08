@@ -30,7 +30,7 @@ public class add_todo extends AppCompatActivity {
         calendarView = (CalendarView)findViewById(R.id.calendar);
         date_text = (TextView)findViewById(R.id.tx_todo_date);
         toolbar_back = (Toolbar) findViewById(R.id.toolbar_back);
-        todo_confrim = (Button)findViewById(R.id.Btn_todo_confrim);
+        todo_confrim = (Button)findViewById(R.id.Btn_todo_confirm);
         todo_cancel=(Button) findViewById(R.id.Btn_todo_cancel);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -50,7 +50,7 @@ public class add_todo extends AppCompatActivity {
             }
         });
         /*
-        todo_confrim.setOnClickListener(new View.OnClickListener() {
+        todo_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //确认按钮

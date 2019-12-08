@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -31,6 +31,6 @@
     <!--popMenu分割线的颜色-->
     <style name="popmenuDivier">
         <item name="android:divider">@color/yellow</item>
-        <item name="android:dividerHeight">2sp</item>
+        <item name="android:dividerHeight">1sp</item>
     </style>
 </resources>

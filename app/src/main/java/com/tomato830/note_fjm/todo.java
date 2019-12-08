@@ -56,6 +56,7 @@ public class todo extends Fragment {
     FloatingActionButton fab;
     HashMap<String, Integer> stringIntegerHashMap = new HashMap<>();
     RelativeLayout todo_sort_relativelayout;
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
@@ -110,7 +111,6 @@ public class todo extends Fragment {
                         tagsort();
                         break;
                 }
-
                 return false;
             }
         });
@@ -130,7 +130,6 @@ public class todo extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id =item.getItemId();
-
         return super.onOptionsItemSelected(item);
     }
 }

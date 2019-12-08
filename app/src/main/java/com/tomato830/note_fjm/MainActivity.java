@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -23,15 +24,12 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    //组件
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     Fragment todoFragment,finishedFragment,checkinFragment;
     TabLayout tabLayout;
-
-    //Create a gridviewAdapter object
-    public GridViewAdapter gridAdapter;
-    //create a gridview
-    public GridView contibutionView;
+    LinearLayout menu_todo,menu_finished,menu_checkin;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -48,9 +46,6 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
-
-        //checkinFragment=new checkIN();
-        //getSupportFragmentManager().beginTransaction().replace(R.id.tabFragment,checkinFragment).commit();
 
         tabLayout=(TabLayout) findViewById(R.id.tab);
         todoFragment=new todo();
@@ -83,6 +78,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+
+        //抽屉层初始化
+        menu_todo=(LinearLayout) findViewById(R.id.menu_todo);
+        menu_finished=(LinearLayout) findViewById(R.id.menu_finished);
+        menu_checkin=(LinearLayout) findViewById(R.id.menu_checkin);
+
+        //设置监听器
+        menu_todo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                tabLayout.getTabAt(0).select(); //tab计数从0开始
+            }
+        });
+        menu_finished.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                tabLayout.getTabAt(1).select();
+            }
+
+        });
+        menu_checkin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                tabLayout.getTabAt(2).select();
             }
         });
     }
