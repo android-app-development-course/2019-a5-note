@@ -1,11 +1,13 @@
 package com.tomato830.note_fjm.note;
 
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 
 public class note {
+    private int id;
     private String title;
     private String content;
-    private String tag;
+    private HashSet<String> tag;
     private GregorianCalendar creationTime;
     private GregorianCalendar deadline;
     private boolean isDone;
@@ -18,6 +20,14 @@ public class note {
     }
 
     //setter和getter方法
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -34,11 +44,11 @@ public class note {
         this.content = content;
     }
 
-    public String getTag() {
+    public HashSet<String> getTag() {
         return tag;
     }
 
-    public void setTag(String tag) {
+    public void setTag(HashSet<String> tag) {
         this.tag = tag;
     }
 

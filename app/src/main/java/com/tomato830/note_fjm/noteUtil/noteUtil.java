@@ -1,5 +1,8 @@
 package com.tomato830.note_fjm.noteUtil;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteOpenHelper;
+
 import com.tomato830.note_fjm.note.note;
 
 import java.text.Collator;
@@ -13,6 +16,12 @@ public class noteUtil {
     private static final String CREATIOINTIME="CREATIONTIME";
     private static final String TITLE="TITLE";
     private static final String DEADLINE="DEADLINE";
+    MySQLiteHelper mySQLiteHelper;
+
+    //默认构造函数
+    noteUtil(Context context,int version){
+        mySQLiteHelper=new MySQLiteHelper(context,version);
+    }
 
 
     static void addNote(ArrayList<note> notes,String title, String content, String tag, GregorianCalendar deadline, boolean isDone){
