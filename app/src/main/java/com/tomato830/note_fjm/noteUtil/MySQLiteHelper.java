@@ -24,8 +24,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         //text类型不限制长度
         //哈希表转字符串
         //日期转化为字符串
-        //表名为todolist
-        db.execSQL("CREATE TABLE todolist(id integer primary key autoincrement, title text, content text, tag text, creationTime text, deadline text, isDone tinyint)");
+
+        db.execSQL("CREATE TABLE todolist(id integer primary key autoincrement, title text, content text, " +
+                "tag text, creationTime text, deadline text,  isDone tinyint,isNotice tinyint)");
+
     }
 
     @Override

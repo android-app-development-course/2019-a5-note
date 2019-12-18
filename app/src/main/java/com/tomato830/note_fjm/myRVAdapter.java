@@ -9,14 +9,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tomato830.note_fjm.note.note;
+
+import java.util.ArrayList;
+
 public class myRVAdapter extends RecyclerView.Adapter<myRVAdapter.myTVHolder> {
 
-    private final String[] mArray;
+    private ArrayList<note> mArray;
     private final LayoutInflater mLayoutInflater;
     private final Context mContext;
 
-    public myRVAdapter(Context context){
-        mArray = context.getResources().getStringArray(R.array.testArray);
+    public myRVAdapter(Context context,ArrayList<note> mArray){
+
+        //mArray = context.getResources().getStringArray(R.array.testArray);
+        this.mArray = mArray;
         mLayoutInflater = LayoutInflater.from(context);
         mContext = context;
     }
@@ -31,21 +37,27 @@ public class myRVAdapter extends RecyclerView.Adapter<myRVAdapter.myTVHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull myTVHolder holder, int position) {
-        holder.mTextview.setText(mArray[position]);
+        //holder.item_titile.setText(mArray[position]);
+        holder.item_titile.setText(mArray.get(position).getTitle());
+        holder.item_body.setText(mArray.get(position).getContent());
+        holder.item_time.setText(mArray.get(position).getCreationTime().toString());
     }
 
 
     @Override
     public int getItemCount() {
-        return mArray == null ? 0:mArray.length;
+        return mArray == null ? 0:mArray.size();
     }
 
     public class myTVHolder extends RecyclerView.ViewHolder{
-        TextView mTextview;
-
+        TextView item_titile;
+        TextView item_body;
+        TextView item_time;
         public myTVHolder(@NonNull View itemView) {
             super(itemView);
-            mTextview = (TextView) itemView.findViewById(R.id.carditem_title);
+            item_titile = (TextView) itemView.findViewById(R.id.carditem_title);
+            item_body = (TextView)itemView.findViewById(R.id.carditem_body);
+            item_time = (TextView) itemView.findViewById(R.id.carditem_time);
         }
 
 

@@ -18,7 +18,9 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.tomato830.note_fjm.note.note;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -40,6 +42,8 @@ public class finished extends Fragment {
         return inflater.inflate(R.layout.fragment_finished, container, false);
     }
 
+
+    ArrayList<note> note_list;
     RecyclerView recyclerone;
     HashMap<String, Integer> stringIntegerHashMap = new HashMap<>();
     RelativeLayout todo_sort_relativelayout;
@@ -50,7 +54,11 @@ public class finished extends Fragment {
         super.onActivityCreated(savedInstanceState);
         recyclerone = getActivity().findViewById(R.id.recycler_one);
         recyclerone.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerone.setAdapter(new myRVAdapter(getContext()));
+
+        //未完成
+        note_list = new ArrayList<>();
+        recyclerone.setAdapter(new myRVAdapter(getContext(),note_list));
+
         stringIntegerHashMap.put(SpacesItemDecoration.TOP_DECORATION,15);
         recyclerone.addItemDecoration(new SpacesItemDecoration(stringIntegerHashMap));
         stringIntegerHashMap.put(SpacesItemDecoration.BOTTOM_DECORATION,15);

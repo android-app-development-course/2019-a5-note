@@ -7,15 +7,19 @@ public class note {
     private int id;
     private String title;
     private String content;
-    private HashSet<String> tag;
+    private HashSet<String> tag ;
     private GregorianCalendar creationTime;
     private GregorianCalendar deadline;
     private boolean isDone;
+    private boolean isNotice;
 
     //构造函数
     public note(String title){
 
         setTitle(title);
+
+    }
+    public note(){
 
     }
 
@@ -75,4 +79,9 @@ public class note {
     public void setCreationTime(GregorianCalendar creationTime) {
         this.creationTime = creationTime;
     }
+    public void setNotice(boolean notice){
+        this.isNotice = notice;
+
+    }
+    public boolean isNotice(){return isNotice;}
 }
