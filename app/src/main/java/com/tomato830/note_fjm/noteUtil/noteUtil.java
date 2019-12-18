@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.Locale;
 
 public class noteUtil {
@@ -24,7 +25,7 @@ public class noteUtil {
     }
 
 
-    static void addNote(ArrayList<note> notes,String title, String content, String tag, GregorianCalendar deadline, boolean isDone){
+    static void addNote(ArrayList<note> notes, String title, String content, HashSet<String> tag, GregorianCalendar deadline, boolean isDone){
         note nt=new note(title);
         nt.setContent(content);
         nt.setTag(tag);

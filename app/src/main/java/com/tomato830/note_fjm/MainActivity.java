@@ -6,21 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.ContentValues;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
-import com.tomato830.note_fjm.ContributionChart.GridViewAdapter;
-
-import java.util.ArrayList;
+import com.tomato830.note_fjm.noteUtil.MySQLiteHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     Fragment todoFragment,finishedFragment,checkinFragment;
     TabLayout tabLayout;
     LinearLayout menu_todo,menu_finished,menu_checkin;
+    MySQLiteHelper mySQLiteHelper;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -109,6 +111,18 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout.getTabAt(2).select();
             }
         });
+
+        //初始化数据库
+        mySQLiteHelper=new MySQLiteHelper(this,1);
+
+        //测试,插入数据
+        SQLiteDatabase db=mySQLiteHelper.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put("title","今天天气很好");
+        Long id=db.insert("todolist",null,values);
+        Log.v("创建成功","id为"+Long.toString(id));
+
+        db.close();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
