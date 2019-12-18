@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class myRVAdapter extends RecyclerView.Adapter<myRVAdapter.myTVHolder> {
 
-    private final String[] mArray;
+    private String[] mArray;
     private final LayoutInflater mLayoutInflater;
     private final Context mContext;
 
