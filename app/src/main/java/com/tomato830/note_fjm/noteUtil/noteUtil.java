@@ -27,7 +27,8 @@ public class noteUtil {
     static void addNote(ArrayList<note> notes,String title, String content, String tag, GregorianCalendar deadline, boolean isDone){
         note nt=new note(title);
         nt.setContent(content);
-        //nt.setTag(tag);此处有错,string无法转换为hashset
+
+        //nt.setTag(tag);此处有错,string无法转换为hashset->改为nt.getTag().add(tag);?
         nt.setDeadline(deadline);
         nt.setDone(isDone);
         notes.add(nt);
