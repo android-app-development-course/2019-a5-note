@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,9 +20,14 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.tomato830.note_fjm.noteUtil.MySQLiteHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     LinearLayout menu_todo,menu_finished,menu_checkin;
     MySQLiteHelper mySQLiteHelper;
+    ViewPager viewPager;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -123,6 +130,22 @@ public class MainActivity extends AppCompatActivity {
         Log.v("创建成功","id为"+Long.toString(id));
 
         db.close();
+
+        //加载fragemnt
+        LayoutInflater layoutInflater=LayoutInflater.from(this);
+        View view1=layoutInflater.inflate(R.layout.fragment_todo,null);
+        View view2=layoutInflater.inflate(R.layout.fragment_finished,null);
+        View view3=layoutInflater.inflate(R.layout.fragment_check_in,null);
+
+        List<View> viewList=new ArrayList<>();
+        viewList.add(view1);
+        viewList.add(view2);
+        viewList.add(view3);
+
+        //加载viewpager
+        NoteViewPagerAdapter pagerAdapter=new NoteViewPagerAdapter(viewList);
+        viewPager=(ViewPager) findViewById(R.id.viewPager);
+        viewPager.setAdapter(pagerAdapter);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

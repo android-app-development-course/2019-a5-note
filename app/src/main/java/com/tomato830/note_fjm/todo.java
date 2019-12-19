@@ -89,6 +89,7 @@ public class todo extends Fragment {
         HashSet<String> tag_set = new HashSet<>();
         mySQLiteHelper = new MySQLiteHelper(getContext(),1);
         SQLiteDatabase sqLiteDatabase = mySQLiteHelper.getReadableDatabase();
+        /*
         Cursor cursor = sqLiteDatabase.query("todolist",null,null,null,null,null,null);
         if(cursor.moveToFirst()){
 
@@ -106,7 +107,11 @@ public class todo extends Fragment {
                 DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
                 Date date1 = null;
                 try {
-                    date1 = dateFormat1.parse(cursor.getString(cursor.getColumnIndex("creationTime")));
+                    if(cursor.getString(cursor.getColumnIndex("creationTime"))==null){  //临时改的
+                        date1=new Date();
+                    }else {
+                        date1 = dateFormat1.parse(cursor.getString(cursor.getColumnIndex("creationTime")));
+                    }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -117,7 +122,11 @@ public class todo extends Fragment {
                 DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
                 Date date2 = null;
                 try {
-                    date2 = dateFormat2.parse(cursor.getString(cursor.getColumnIndex("deadline")));
+                    if(cursor.getString(cursor.getColumnIndex("deadline"))==null){  //临时改的
+                        date2=new Date();
+                    }else {
+                        date2 = dateFormat2.parse(cursor.getString(cursor.getColumnIndex("deadline")));
+                    }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -146,6 +155,8 @@ public class todo extends Fragment {
 
         cursor.close();
         sqLiteDatabase.close();
+
+         */
 
         recyclerView.setAdapter(new myRVAdapter(getContext(),note_list));
 

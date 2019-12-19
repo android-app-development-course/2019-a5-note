@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
+    static final String DATABASENAME="DailyNote.db";
+
     //默认构造函数
     //游标工厂一般为空
     //数据库名为DailyNote.db
@@ -15,7 +17,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     //默认四个参数,此处减少两个
     //@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version
     public MySQLiteHelper(@Nullable Context context, int version) {
-        super(context, "DailyNote.db", null, version);
+        super(context, DATABASENAME, null, version);
     }
 
     @Override
