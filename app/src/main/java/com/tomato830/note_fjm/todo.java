@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -74,44 +75,44 @@ public class todo extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-
+        //每个记录之间的间隔
         int d=10;
-
 
         super.onActivityCreated(savedInstanceState);
 
-
+        //初始化recyclerView
         recyclerView = getActivity().findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
+        //读取全部note
         note_list = new ArrayList<>();
         HashSet<String> tag_set = new HashSet<>();
         mySQLiteHelper = new MySQLiteHelper(getContext(),1);
         SQLiteDatabase sqLiteDatabase = mySQLiteHelper.getReadableDatabase();
-        /*
-        Cursor cursor = sqLiteDatabase.query("todolist",null,null,null,null,null,null);
+
+        //取出所有未完成的note
+        Cursor cursor = sqLiteDatabase.query("todolist",null,"isDone=0",null,null,null,null);
+        //找到了有未完成的note
         if(cursor.moveToFirst()){
 
             note nt;
             while (!cursor.isAfterLast()){
                 nt = new note();
+                //取出id,标题,内容
                 nt.setId(Integer.valueOf(cursor.getString(cursor.getColumnIndex("id"))));
                 nt.setTitle(cursor.getString(cursor.getColumnIndex("title")));
                 nt.setContent(cursor.getString(cursor.getColumnIndex("content")));
 
-                //是否只插入了一个tag?
+                //取出tag,将string转为hashSet
+                tag_set=note.string2HashSet(cursor.getString(cursor.getColumnIndex("tag")));
                 nt.setTag(tag_set);
-                nt.getTag().add(cursor.getString(cursor.getColumnIndex("tag")));
 
-                DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+                //取出creationTime
+                DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd-HH-mm");//取出年月日时分
                 Date date1 = null;
                 try {
-                    if(cursor.getString(cursor.getColumnIndex("creationTime"))==null){  //临时改的
-                        date1=new Date();
-                    }else {
-                        date1 = dateFormat1.parse(cursor.getString(cursor.getColumnIndex("creationTime")));
-                    }
+                    date1 = dateFormat1.parse(cursor.getString(cursor.getColumnIndex("creationTime")));
+                    Log.v("creationTime",cursor.getString(cursor.getColumnIndex("creationTime")));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -119,21 +120,20 @@ public class todo extends Fragment {
                 calendar1.setTime(date1);
                 nt.setCreationTime(calendar1);
 
-                DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+                //取出deadline
+                DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
                 Date date2 = null;
                 try {
-                    if(cursor.getString(cursor.getColumnIndex("deadline"))==null){  //临时改的
-                        date2=new Date();
-                    }else {
-                        date2 = dateFormat2.parse(cursor.getString(cursor.getColumnIndex("deadline")));
-                    }
+                    date2 = dateFormat2.parse(cursor.getString(cursor.getColumnIndex("deadline")));
+                    Log.v("deadline",cursor.getString(cursor.getColumnIndex("deadline")));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 GregorianCalendar calendar2 = new GregorianCalendar();
                 calendar2.setTime(date2);
-                nt.setCreationTime(calendar2);
+                nt.setDeadline(calendar2);
 
+                //取出isDone
                 if(Integer.valueOf(cursor.getString(cursor.getColumnIndex("isDone"))) == 1){
                     nt.setDone(true);
                 }
@@ -141,6 +141,7 @@ public class todo extends Fragment {
                     nt.setDone(false);
                 }
 
+                //取出isNotice
                 if(Integer.valueOf(cursor.getString(cursor.getColumnIndex("isNotice"))) == 1){
                     nt.setDone(true);
                 }
@@ -149,15 +150,18 @@ public class todo extends Fragment {
                 }
                 note_list.add(nt);
 
+                //游标移到下一个
+                cursor.moveToNext();
             }
         }
+        //查看读取了多少个note
+        Log.v("todo","读取note"+note_list.size()+"个");
 
-
+        //完成操作,关闭游标和数据库
         cursor.close();
         sqLiteDatabase.close();
 
-         */
-
+        //为recyclerView设置适配器
         recyclerView.setAdapter(new myRVAdapter(getContext(),note_list));
 
         //设置recycleView的item之间间距
@@ -176,8 +180,6 @@ public class todo extends Fragment {
             }
         });
 
-
-
         fab = (FloatingActionButton) getActivity().findViewById(R.id.Btn_fab);
         //绑定fab与activity?
         //跳转新增待办事项add_todo
@@ -186,11 +188,11 @@ public class todo extends Fragment {
             public void onClick(View v) {
                Intent intent = new Intent(getActivity(),add_todo.class);
                startActivity(intent);
-
             }
         });
 
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void showSortMenu(final View view){
         final PopupMenu popupMenu = new PopupMenu(getActivity(),view);

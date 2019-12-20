@@ -1,6 +1,7 @@
 package com.tomato830.note_fjm;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tomato830.note_fjm.note.note;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class myRVAdapter extends RecyclerView.Adapter<myRVAdapter.myTVHolder> {
@@ -40,7 +42,9 @@ public class myRVAdapter extends RecyclerView.Adapter<myRVAdapter.myTVHolder> {
         //holder.item_titile.setText(mArray[position]);
         holder.item_titile.setText(mArray.get(position).getTitle());
         holder.item_body.setText(mArray.get(position).getContent());
-        holder.item_time.setText(mArray.get(position).getCreationTime().toString());
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd|HH:mm");
+        holder.item_time.setText(sdf.format(mArray.get(position).getCreationTime().getTime()));
+        Log.v("note生成时间",sdf.format(mArray.get(position).getDeadline().getTime()));
     }
 
 

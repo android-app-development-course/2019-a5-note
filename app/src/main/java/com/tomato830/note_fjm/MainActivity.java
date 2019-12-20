@@ -57,24 +57,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
         tabLayout=(TabLayout) findViewById(R.id.tab);
-        todoFragment=new todo();
-        getSupportFragmentManager().beginTransaction().replace(R.id.tabFragment,todoFragment).commit();
+        //todoFragment=new todo();
+        //1getSupportFragmentManager().beginTransaction().replace(R.id.tabFragment,todoFragment).commit();
+        /*
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int pos=tab.getPosition();
                 switch (pos){
                     case 0:
-                        todoFragment=new todo();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.tabFragment,todoFragment).commit();
+                        viewPager.setCurrentItem(0);
                         break;
                     case 1:
-                        finishedFragment=new finished();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.tabFragment,finishedFragment).commit();
+                        viewPager.setCurrentItem(1);
                         break;
                     case 2:
-                        checkinFragment=new checkIN();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.tabFragment,checkinFragment).commit();
+                        viewPager.setCurrentItem(2);
                         break;
                 }
             }
@@ -90,12 +88,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+         */
+
         //抽屉层初始化
         menu_todo=(LinearLayout) findViewById(R.id.menu_todo);
         menu_finished=(LinearLayout) findViewById(R.id.menu_finished);
         menu_checkin=(LinearLayout) findViewById(R.id.menu_checkin);
 
-        //设置监听器
+        //抽屉层设置监听器
         menu_todo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         mySQLiteHelper=new MySQLiteHelper(this,1);
 
         //测试,插入数据
+        /*
         SQLiteDatabase db=mySQLiteHelper.getWritableDatabase();
         ContentValues values=new ContentValues();
         values.put("title","今天天气很好");
@@ -131,21 +132,43 @@ public class MainActivity extends AppCompatActivity {
 
         db.close();
 
+         */
+
         //加载fragemnt
         LayoutInflater layoutInflater=LayoutInflater.from(this);
         View view1=layoutInflater.inflate(R.layout.fragment_todo,null);
+
         View view2=layoutInflater.inflate(R.layout.fragment_finished,null);
         View view3=layoutInflater.inflate(R.layout.fragment_check_in,null);
 
-        List<View> viewList=new ArrayList<>();
-        viewList.add(view1);
-        viewList.add(view2);
-        viewList.add(view3);
+        List<Fragment> fragmentList=new ArrayList<>();
+        fragmentList.add(new todo());
+        fragmentList.add(new finished());
+        fragmentList.add(new checkIN());
 
         //加载viewpager
-        NoteViewPagerAdapter pagerAdapter=new NoteViewPagerAdapter(viewList);
+        NoteFragmentAdapter pagerAdapter=new NoteFragmentAdapter(getSupportFragmentManager(),fragmentList);
         viewPager=(ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                //滑动时改变tablayout的被选择的tab
+                //tabLayout.getTabAt(position).select();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.tomato830.note_fjm.note.note;
+
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
     static final String DATABASENAME="DailyNote.db";
@@ -26,7 +28,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         //text类型不限制长度
         //哈希表转字符串
         //日期转化为字符串
-
+        //8个字段对应note8个属性
         db.execSQL("CREATE TABLE todolist(id integer primary key autoincrement, title text, content text, " +
                 "tag text, creationTime text, deadline text,  isDone tinyint,isNotice tinyint)");
 
@@ -37,4 +39,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
+
 }
