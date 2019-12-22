@@ -1,6 +1,7 @@
 package com.tomato830.note_fjm;
 
 
+import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tomato830.note_fjm.note.note;
@@ -52,6 +54,15 @@ public class finished extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
+
+        //获取并显示日期，顺带应用于check_in
+        TextView textView = getActivity().findViewById(R.id.finished_date);
+        Calendar calendar = Calendar.getInstance();
+        String mMonth = String.valueOf(calendar.get(Calendar.MONTH) + 1);        //获取日期的月
+        String mDay = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));      //获取日期的日
+        textView.setText(mMonth+"月"+mDay+"日");
+
+        //初始化recyclerview
         recyclerone = getActivity().findViewById(R.id.recycler_one);
         recyclerone.setLayoutManager(new LinearLayoutManager(getContext()));
 

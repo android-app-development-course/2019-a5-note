@@ -31,9 +31,9 @@
 
 
                 <TextView
+                    android:id="@+id/finished_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12月4号"
                     android:textSize="30dp" />
 
 
@@ -48,11 +48,20 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignBottom="@+id/checkInButton"
                         android:layout_marginLeft="2dp"
-                        android:text="今日完成事件:2/3"
+                        android:text="今日完成事件:0/0"
                         android:textColor="#000000"
                         android:textSize="35dp" />
 
+
                 </RelativeLayout>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="刷新"
+                    android:textSize="25dp"
+                    android:background="@drawable/logout_selector"
+                    />
 
             </LinearLayout>
 
