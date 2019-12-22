@@ -72,7 +72,6 @@ public class todo extends Fragment {
     MySQLiteHelper mySQLiteHelper;
     ArrayList<note> note_list;
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         //每个记录之间的间隔

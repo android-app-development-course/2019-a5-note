@@ -31,7 +31,7 @@
 
 
                 <TextView
-                    android:id="@+id/finished_date"
+                    android:id="@+id/today_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="30dp" />
@@ -48,15 +48,16 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignBottom="@+id/checkInButton"
                         android:layout_marginLeft="2dp"
-                        android:text="今日完成事件:0/0"
                         android:textColor="#000000"
                         android:textSize="35dp" />
 
 
                 </RelativeLayout>
                 <Button
+                    android:id="@+id/finished_refresh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:text="刷新"
                     android:textSize="25dp"
