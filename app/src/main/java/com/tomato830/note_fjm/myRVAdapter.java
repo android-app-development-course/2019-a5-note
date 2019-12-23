@@ -45,9 +45,8 @@ public class myRVAdapter extends RecyclerView.Adapter<myRVAdapter.myTVHolder> {
         //holder.checkBox.setTag(position);
         //holder.item_titile.setText(mArray[position]);
 
-        //此处待完成
-        // MySQLiteHelper helper = new MySQLiteHelper(holder.,1);;
-        // SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
+        MySQLiteHelper helper = new MySQLiteHelper(mContext,1);;
+        SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
         holder.item_titile.setText(mArray.get(position).getTitle());
         holder.item_body.setText(mArray.get(position).getContent());
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd|HH:mm");
