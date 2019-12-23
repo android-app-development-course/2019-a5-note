@@ -11,12 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tomato830.note_fjm.ContributionChart.GridViewAdapter;
 import com.tomato830.note_fjm.ContributionChart.TaskCalculator;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 /**
@@ -34,7 +36,7 @@ public class checkIN extends Fragment {
     TaskCalculator t;
 
     Button checkInButton;
-
+    TextView textView;
 
     public checkIN() {
         // Required empty public constructor
@@ -51,6 +53,14 @@ public class checkIN extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        //获取手机日期并显示
+        textView = getActivity().findViewById(R.id.check_in_today_date);
+        Calendar calendar = Calendar.getInstance();
+        String mMonth = String.valueOf(calendar.get(Calendar.MONTH) + 1);        //获取日期的月
+        String mDay = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));      //获取日期的日
+        textView.setText(mMonth+"月"+mDay+"日");
+
 
         contibutionView = (GridView) getActivity().findViewById(R.id.gridView1);
 
