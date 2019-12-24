@@ -140,7 +140,6 @@ public class finished extends Fragment {
                 calendar2.setTime(date2);
                 nt.setDeadline(calendar2);
 
-                /*
                 //取出isDone
                 if(Integer.valueOf(cursor.getString(cursor.getColumnIndex("isDone"))) == 1){
                     nt.setDone(true);
@@ -148,7 +147,6 @@ public class finished extends Fragment {
                 else {
                     nt.setDone(false);
                 }
-                */
 
                 //取出isNotice
                 if(Integer.valueOf(cursor.getString(cursor.getColumnIndex("isNotice"))) == 1){
