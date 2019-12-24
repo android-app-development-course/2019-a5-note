@@ -53,7 +53,7 @@ public class myRVAdapter extends RecyclerView.Adapter<myRVAdapter.myTVHolder> {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd|HH:mm");
         holder.item_time.setText(sdf.format(mArray.get(position).getCreationTime().getTime()));
         Log.v("note生成时间",sdf.format(mArray.get(position).getDeadline().getTime()));
-        //救命！我懵逼了：勾选的item在下一次登入时才能转到finished
+        //救命！我懵逼了：在todo中勾选的item在下一次登入应用时时才能在finished中显示
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
