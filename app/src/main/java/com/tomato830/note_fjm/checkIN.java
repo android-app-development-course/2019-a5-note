@@ -1,16 +1,32 @@
 package com.tomato830.note_fjm;
 
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Message;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.HorizontalScrollView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +34,7 @@ import com.tomato830.note_fjm.ContributionChart.GridViewAdapter;
 import com.tomato830.note_fjm.ContributionChart.TaskCalculator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 
@@ -36,7 +53,45 @@ public class checkIN extends Fragment {
     TaskCalculator t;
 
     Button checkInButton;
-    TextView textView;
+    TextView textView,showContribution;
+
+    RadioGroup radioGroup;
+    RadioButton jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec,thisMonthButton;
+
+    HorizontalScrollView horizontalScrollView;
+
+    ArrayList<Integer> thisMonthVal;
+    ArrayList<Integer> janVal ;
+    ArrayList<Integer> febVal ;
+    ArrayList<Integer> marVal ;
+    ArrayList<Integer> aprVal ;
+    ArrayList<Integer> mayVal ;
+    ArrayList<Integer> junVal ;
+    ArrayList<Integer> julVal ;
+    ArrayList<Integer> augVal ;
+    ArrayList<Integer> sepVal ;
+    ArrayList<Integer> octVal ;
+    ArrayList<Integer> novVal ;
+    ArrayList<Integer> decVal ;
+
+    @SuppressLint("HandlerLeak")
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what){
+                case 1:
+                    //签到成功,更新数据
+                    int day=Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+                    thisMonthVal.set(day-1,thisMonthVal.get(day)+1);
+                    Log.v("签到之后thismonth",thisMonthVal.toString());
+                    Log.v("签到之后dec",decVal.toString());
+                    stroeDate();
+                    //更新ui
+                    t.calculate(janVal, febVal, marVal, aprVal, mayVal, junVal, julVal, augVal, sepVal, octVal, novVal, decVal, 24, 2019);
+                    thisMonthButton.callOnClick();
+            }
+        }
+    };
 
     public checkIN() {
         // Required empty public constructor
@@ -51,430 +106,115 @@ public class checkIN extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        //将scrollView滑到指定位置
+        final int month=Calendar.getInstance().get(Calendar.MONTH)+1;
+        horizontalScrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                horizontalScrollView.smoothScrollTo(month*radioGroup.getWidth()/12,0);
+                //点击一下这个按钮,刷新grid
+                thisMonthButton.callOnClick();
+            }
+        });
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         //获取手机日期并显示
         textView = getActivity().findViewById(R.id.check_in_today_date);
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
         String mMonth = String.valueOf(calendar.get(Calendar.MONTH) + 1);        //获取日期的月
-        String mDay = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));      //获取日期的日
+        final String mDay = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));      //获取日期的日
         textView.setText(mMonth+"月"+mDay+"日");
-
 
         contibutionView = (GridView) getActivity().findViewById(R.id.gridView1);
 
-        checkInButton=(Button) getActivity().findViewById(R.id.checkInButton);
-        checkInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkInButton.setText("已签到");
-                checkInButton.setClickable(false);
-                Toast.makeText(getContext(),"签到成功!",Toast.LENGTH_SHORT).show();
+        //存储贡献数据
+        janVal = new ArrayList<Integer>();
+        febVal = new ArrayList<Integer>();
+        marVal = new ArrayList<Integer>();
+        aprVal = new ArrayList<Integer>();
+        mayVal = new ArrayList<Integer>();
+        junVal = new ArrayList<Integer>();
+        julVal = new ArrayList<Integer>();
+        augVal = new ArrayList<Integer>();
+        sepVal = new ArrayList<Integer>();
+        octVal = new ArrayList<Integer>();
+        novVal = new ArrayList<Integer>();
+        decVal = new ArrayList<Integer>();
+
+        //判断是否第一次打开
+        SharedPreferences sharedPreferences=getActivity().getSharedPreferences("contributionValue"+String.valueOf(calendar.get(Calendar.YEAR)), Context.MODE_PRIVATE);
+        String isFirst=sharedPreferences.getString("isFirst","true");
+
+        //第一次打开则初始化
+        if (isFirst=="true"){
+            SharedPreferences.Editor editor=sharedPreferences.edit();
+            editor.putString("isFirst","false");//是否第一次启动
+            editor.putString("year",String.valueOf(calendar.get(Calendar.YEAR)));//本年的年份
+            editor.apply();
+            int year=calendar.get(Calendar.YEAR);
+
+            //全部贡献值初始化为0
+            for (int i=0;i<31;++i) {
+                janVal.add(0);
+                marVal.add(0);
+                mayVal.add(0);
+                julVal.add(0);
+                augVal.add(0);
+                octVal.add(0);
+                decVal.add(0);
             }
-        });
-
-        ArrayList<Integer> janVal = new ArrayList<Integer>();
-        ArrayList<Integer> febVal = new ArrayList<Integer>();
-        ArrayList<Integer> marVal = new ArrayList<Integer>();
-        ArrayList<Integer> aprVal = new ArrayList<Integer>();
-        ArrayList<Integer> mayVal = new ArrayList<Integer>();
-        ArrayList<Integer> junVal = new ArrayList<Integer>();
-        ArrayList<Integer> julVal = new ArrayList<Integer>();
-        ArrayList<Integer> augVal = new ArrayList<Integer>();
-        ArrayList<Integer> sepVal = new ArrayList<Integer>();
-        ArrayList<Integer> octVal = new ArrayList<Integer>();
-        ArrayList<Integer> novVal = new ArrayList<Integer>();
-        ArrayList<Integer> decVal = new ArrayList<Integer>();
-
-        //模拟的数据后期删除
-        //模拟打卡记录
-        {
-            janVal.add(0);
-            janVal.add(0);
-            janVal.add(20);
-            janVal.add(12);
-            janVal.add(0);
-            janVal.add(0);
-            janVal.add(10);
-            janVal.add(10);
-            janVal.add(15);
-            janVal.add(20);
-            janVal.add(24);
-            janVal.add(0);
-            janVal.add(0);
-            janVal.add(13);
-            janVal.add(2);
-            janVal.add(6);
-            janVal.add(3);
-            janVal.add(4);
-            janVal.add(0);
-            janVal.add(0);
-            janVal.add(3);
-            janVal.add(12);
-            janVal.add(7);
-            janVal.add(6);
-            janVal.add(9);
-            janVal.add(0);
-            janVal.add(0);
-            janVal.add(0);
-            janVal.add(19);
-            janVal.add(17);
-            janVal.add(16);
-
-            marVal.add(20);
-            marVal.add(20);
-            marVal.add(2);
-            marVal.add(0);
-            marVal.add(0);
-            marVal.add(22);
-            marVal.add(20);
-            marVal.add(12);
-            marVal.add(19);
-            marVal.add(20);
-            marVal.add(0);
-            marVal.add(20);
-            marVal.add(0);
-            marVal.add(18);
-            marVal.add(2);
-            marVal.add(6);
-            marVal.add(22);
-            marVal.add(4);
-            marVal.add(0);
-            marVal.add(24);
-            marVal.add(19);
-            marVal.add(0);
-            marVal.add(7);
-            marVal.add(6);
-            marVal.add(9);
-            marVal.add(0);
-            marVal.add(22);
-            marVal.add(0);
-            marVal.add(11);
-            marVal.add(17);
-            marVal.add(0);
-
-            aprVal.add(0);
-            aprVal.add(1);
-            aprVal.add(0);
-            aprVal.add(2);
-            aprVal.add(0);
-            aprVal.add(22);
-            aprVal.add(10);
-            aprVal.add(10);
-            aprVal.add(19);
-            aprVal.add(21);
-            aprVal.add(24);
-            aprVal.add(0);
-            aprVal.add(0);
-            aprVal.add(2);
-            aprVal.add(2);
-            aprVal.add(6);
-            aprVal.add(3);
-            aprVal.add(4);
-            aprVal.add(0);
-            aprVal.add(12);
-            aprVal.add(19);
-            aprVal.add(0);
-            aprVal.add(7);
-            aprVal.add(6);
-            aprVal.add(9);
-            aprVal.add(0);
-            aprVal.add(0);
-            aprVal.add(0);
-            aprVal.add(21);
-            aprVal.add(17);
-            aprVal.add(22);
-
-            mayVal.add(0);
-            mayVal.add(1);
-            mayVal.add(0);
-            mayVal.add(2);
-            mayVal.add(0);
-            mayVal.add(0);
-            mayVal.add(20);
-            mayVal.add(10);
-            mayVal.add(19);
-            mayVal.add(20);
-            mayVal.add(24);
-            mayVal.add(0);
-            mayVal.add(21);
-            mayVal.add(16);
-            mayVal.add(2);
-            mayVal.add(6);
-            mayVal.add(10);
-            mayVal.add(4);
-            mayVal.add(0);
-            mayVal.add(0);
-            mayVal.add(19);
-            mayVal.add(0);
-            mayVal.add(19);
-            mayVal.add(6);
-            mayVal.add(9);
-            mayVal.add(10);
-            mayVal.add(0);
-            mayVal.add(0);
-            mayVal.add(19);
-            mayVal.add(17);
-            mayVal.add(20);
-
-            junVal.add(20);
-            junVal.add(1);
-            junVal.add(0);
-            junVal.add(2);
-            junVal.add(10);
-            junVal.add(0);
-            junVal.add(20);
-            junVal.add(10);
-            junVal.add(19);
-            junVal.add(20);
-            junVal.add(24);
-            junVal.add(0);
-            junVal.add(15);
-            junVal.add(16);
-            junVal.add(2);
-            junVal.add(6);
-            junVal.add(24);
-            junVal.add(4);
-            junVal.add(0);
-            junVal.add(20);
-            junVal.add(19);
-            junVal.add(0);
-            junVal.add(7);
-            junVal.add(6);
-            junVal.add(9);
-            junVal.add(10);
-            junVal.add(24);
-            junVal.add(0);
-            junVal.add(11);
-            junVal.add(17);
-            junVal.add(22);
-
-            julVal.add(20);
-            julVal.add(1);
-            julVal.add(0);
-            julVal.add(2);
-            julVal.add(0);
-            julVal.add(0);
-            julVal.add(20);
-            julVal.add(10);
-            julVal.add(19);
-            julVal.add(20);
-            julVal.add(24);
-            julVal.add(0);
-            julVal.add(0);
-            julVal.add(16);
-            julVal.add(2);
-            julVal.add(6);
-            julVal.add(24);
-            julVal.add(4);
-            julVal.add(0);
-            julVal.add(0);
-            julVal.add(19);
-            julVal.add(0);
-            julVal.add(7);
-            julVal.add(6);
-            julVal.add(9);
-            julVal.add(10);
-            julVal.add(0);
-            julVal.add(0);
-            julVal.add(11);
-            julVal.add(17);
-            julVal.add(22);
-
-            augVal.add(0);
-            augVal.add(1);
-            augVal.add(0);
-            augVal.add(2);
-            augVal.add(0);
-            augVal.add(0);
-            augVal.add(20);
-            augVal.add(10);
-            augVal.add(1);
-            augVal.add(20);
-            augVal.add(24);
-            augVal.add(0);
-            augVal.add(24);
-            augVal.add(16);
-            augVal.add(2);
-            augVal.add(6);
-            augVal.add(24);
-            augVal.add(4);
-            augVal.add(0);
-            augVal.add(0);
-            augVal.add(5);
-            augVal.add(0);
-            augVal.add(7);
-            augVal.add(6);
-            augVal.add(12);
-            augVal.add(10);
-            augVal.add(0);
-            augVal.add(0);
-            augVal.add(11);
-            augVal.add(17);
-            augVal.add(0);
-
-            sepVal.add(20);
-            sepVal.add(1);
-            sepVal.add(0);
-            sepVal.add(2);
-            sepVal.add(0);
-            sepVal.add(0);
-            sepVal.add(20);
-            sepVal.add(10);
-            sepVal.add(19);
-            sepVal.add(20);
-            sepVal.add(24);
-            sepVal.add(0);
-            sepVal.add(0);
-            sepVal.add(16);
-            sepVal.add(2);
-            sepVal.add(6);
-            sepVal.add(24);
-            sepVal.add(4);
-            sepVal.add(0);
-            sepVal.add(0);
-            sepVal.add(19);
-            sepVal.add(0);
-            sepVal.add(7);
-            sepVal.add(6);
-            sepVal.add(9);
-            sepVal.add(10);
-            sepVal.add(0);
-            sepVal.add(0);
-            sepVal.add(11);
-            sepVal.add(17);
-            sepVal.add(22);
-
-            octVal.add(20);
-            octVal.add(1);
-            octVal.add(0);
-            octVal.add(2);
-            octVal.add(0);
-            octVal.add(5);
-            octVal.add(20);
-            octVal.add(10);
-            octVal.add(19);
-            octVal.add(20);
-            octVal.add(24);
-            octVal.add(0);
-            octVal.add(12);
-            octVal.add(16);
-            octVal.add(2);
-            octVal.add(6);
-            octVal.add(24);
-            octVal.add(4);
-            octVal.add(0);
-            octVal.add(16);
-            octVal.add(19);
-            octVal.add(0);
-            octVal.add(7);
-            octVal.add(6);
-            octVal.add(9);
-            octVal.add(0);
-            octVal.add(0);
-            octVal.add(0);
-            octVal.add(11);
-            octVal.add(17);
-            octVal.add(2);
-
-            novVal.add(20);
-            novVal.add(1);
-            novVal.add(0);
-            novVal.add(2);
-            novVal.add(0);
-            novVal.add(0);
-            novVal.add(20);
-            novVal.add(10);
-            novVal.add(19);
-            novVal.add(20);
-            novVal.add(24);
-            novVal.add(0);
-            novVal.add(0);
-            novVal.add(16);
-            novVal.add(2);
-            novVal.add(6);
-            novVal.add(24);
-            novVal.add(4);
-            novVal.add(0);
-            novVal.add(0);
-            novVal.add(19);
-            novVal.add(0);
-            novVal.add(7);
-            novVal.add(6);
-            novVal.add(9);
-            novVal.add(10);
-            novVal.add(0);
-            novVal.add(0);
-            novVal.add(11);
-            novVal.add(17);
-            novVal.add(22);
-
-            decVal.add(20);
-            decVal.add(1);
-            decVal.add(0);
-            decVal.add(2);
-            decVal.add(0);
-            decVal.add(0);
-            decVal.add(20);
-            decVal.add(10);
-            decVal.add(19);
-            decVal.add(20);
-            decVal.add(24);
-            decVal.add(0);
-            decVal.add(0);
-            decVal.add(16);
-            decVal.add(2);
-            decVal.add(6);
-            decVal.add(24);
-            decVal.add(4);
-            decVal.add(0);
-            decVal.add(0);
-            decVal.add(19);
-            decVal.add(0);
-            decVal.add(7);
-            decVal.add(6);
-            decVal.add(9);
-            decVal.add(10);
-            decVal.add(0);
-            decVal.add(0);
-            decVal.add(11);
-            decVal.add(17);
-            decVal.add(22);
-
-            febVal.add(20);
-            febVal.add(1);
-            febVal.add(0);
-            febVal.add(2);
-            febVal.add(0);
-            febVal.add(0);
-            febVal.add(20);
-            febVal.add(10);
-            febVal.add(19);
-            febVal.add(20);
-            febVal.add(24);
-            febVal.add(0);
-            febVal.add(0);
-            febVal.add(16);
-            febVal.add(2);
-            febVal.add(6);
-            febVal.add(24);
-            febVal.add(4);
-            febVal.add(0);
-            febVal.add(0);
-            febVal.add(19);
-            febVal.add(0);
-            febVal.add(7);
-            febVal.add(6);
-            febVal.add(9);
-            febVal.add(10);
-            febVal.add(0);
-            febVal.add(0);
-            febVal.add(11);
-            febVal.add(17);
-            febVal.add(22);
-
+            for (int i=0;i<28;++i ) febVal.add(0);
+            if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0){//闰年二月多一天
+                febVal.add(0);
+            }
+            for (int i=0;i<30;++i){
+                aprVal.add(0);
+                junVal.add(0);
+                sepVal.add(0);
+                novVal.add(0);
+            }
+            //将贡献值存储好
+            stroeDate();
         }
+        else {//否则读取贡献值
+            String val=sharedPreferences.getString("jan","[]");
+            janVal=String2list(val);
+            val=sharedPreferences.getString("feb","[]");
+            febVal=String2list(val);
+            val=sharedPreferences.getString("mar","[]");
+            marVal=String2list(val);
+            val=sharedPreferences.getString("apr","[]");
+            aprVal=String2list(val);
+            val=sharedPreferences.getString("may","[]");
+            mayVal=String2list(val);
+            val=sharedPreferences.getString("jun","[]");
+            junVal=String2list(val);
+            val=sharedPreferences.getString("jul","[]");
+            julVal=String2list(val);
+            val=sharedPreferences.getString("aug","[]");
+            augVal=String2list(val);
+            val=sharedPreferences.getString("sep","[]");
+            sepVal=String2list(val);
+            val=sharedPreferences.getString("oct","[]");
+            octVal=String2list(val);
+            val=sharedPreferences.getString("nov","[]");
+            novVal=String2list(val);
+            val=sharedPreferences.getString("dec","[]");
+            decVal=String2list(val);
+        }
+
+        //显示获得的贡献点
+
+
+        //修改今天数据并存储
+
 
         //Create a task calculator object with the monthly flag as false for
         //year based contribution chart or true for month based contribution chart.
@@ -490,13 +230,123 @@ public class checkIN extends Fragment {
         t.calculate(janVal, febVal, marVal, aprVal, mayVal, junVal, julVal, augVal, sepVal, octVal, novVal, decVal, 24, 2019);
 
 
+        //初始化radioButton和
+        jan=(RadioButton) getActivity().findViewById(R.id.jan);
+        feb=(RadioButton) getActivity().findViewById(R.id.feb);
+        mar=(RadioButton) getActivity().findViewById(R.id.mar);
+        apr=(RadioButton) getActivity().findViewById(R.id.apr);
+        may=(RadioButton) getActivity().findViewById(R.id.may);
+        jun=(RadioButton) getActivity().findViewById(R.id.jun);
+        jul=(RadioButton) getActivity().findViewById(R.id.jul);
+        aug=(RadioButton) getActivity().findViewById(R.id.aug);
+        sep=(RadioButton) getActivity().findViewById(R.id.sep);
+        oct=(RadioButton) getActivity().findViewById(R.id.oct);
+        nov=(RadioButton) getActivity().findViewById(R.id.nov);
+        dec=(RadioButton) getActivity().findViewById(R.id.dec);
+        showContribution=(TextView) getActivity().findViewById(R.id.showContribution);
+
+        //点击本月的数据
+        thisMonthVal=new ArrayList<>();
+        int month=calendar.get(Calendar.MONTH)+1;
+        switch (calendar.get(Calendar.MONTH)){
+            case 0:
+                jan.toggle();
+                thisMonthVal=janVal;
+                thisMonthButton=jan;
+                break;
+            case 1:
+                feb.toggle();
+                thisMonthVal=febVal;
+                thisMonthButton=feb;
+                break;
+            case 2:
+                mar.toggle();
+                thisMonthVal=marVal;
+                thisMonthButton=mar;
+                break;
+            case 3:
+                apr.toggle();
+                thisMonthVal=aprVal;
+                thisMonthButton=apr;
+                break;
+            case 4:
+                may.toggle();
+                thisMonthVal=mayVal;
+                thisMonthButton=may;
+                break;
+            case 5:
+                jun.toggle();
+                thisMonthVal=junVal;
+                thisMonthButton=jun;
+                break;
+            case 6:
+                jul.toggle();
+                thisMonthVal=julVal;
+                thisMonthButton=jul;
+                break;
+            case 7:
+                aug.toggle();
+                thisMonthVal=augVal;
+                thisMonthButton=aug;
+                break;
+            case 8:
+                sep.toggle();
+                thisMonthVal=sepVal;
+                thisMonthButton=sep;
+                break;
+            case 9:
+                oct.toggle();
+                thisMonthVal=octVal;
+                thisMonthButton=oct;
+                break;
+            case 10:
+                nov.toggle();
+                thisMonthVal=novVal;
+                thisMonthButton=nov;
+                break;
+            case 11:
+                dec.toggle();
+                thisMonthVal=decVal;
+                thisMonthButton=dec;
+                break;
+        }
+
+        //计算本月贡献点
+        Integer contri=0;
+        for (Integer i:thisMonthVal){
+            contri=contri+i;
+        }
+        showContribution.setText(String.valueOf(calendar.get(Calendar.MONTH)+1)+"月已获得"+String.valueOf(contri)+"个贡献点");
+
+        //初始化HorizontalScrollView和radioGroup
+        horizontalScrollView=(HorizontalScrollView) getActivity().findViewById(R.id.horizontalScrollView1);
+        radioGroup=(RadioGroup) getActivity().findViewById(R.id.radioGroup1);
+
+
+        //签到按钮
+        checkInButton=(Button) getActivity().findViewById(R.id.checkInButton);
+        checkInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkInButton.setText("已签到");
+                checkInButton.setClickable(false);
+                Toast.makeText(getContext(),"签到成功!",Toast.LENGTH_SHORT).show();
+
+                //签到成功,更新ui
+                Message message=new Message();
+                message.what=1;
+                handler.sendMessage(message);
+            }
+        });
+        //判断今天是否已签到
+
     }
 
     //This method is to set/update the gridview adapter
 
     public void monthlystat(int flag, ArrayList<Integer> a) {
 
-        if (flag == 0) {
+        if (flag == 0) {//判断是否第一次创建
 
             //Define the gridViewAdapter
             gridAdapter = new GridViewAdapter(getContext(), R.layout.griditem, a);
@@ -511,5 +361,34 @@ public class checkIN extends Fragment {
 
         }
 
+    }
+
+    ArrayList<Integer> String2list(String val){
+        val=val.substring(1,val.length()-1);
+        ArrayList<String> res=new ArrayList<>(Arrays.asList(val.split(",")));
+        ArrayList<Integer> ret=new ArrayList<>();
+        for (String s:res){
+            ret.add(Integer.decode(s.trim()));//s.trim()去除空格
+        }
+        return ret;
+    }
+
+    void stroeDate(){
+        //贡献值写入sharedPreference
+        SharedPreferences sp=getActivity().getSharedPreferences("contributionValue"+String.valueOf(Calendar.getInstance().get(Calendar.YEAR)), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putString("jan",janVal.toString());
+        editor.putString("feb",febVal.toString());
+        editor.putString("mar",marVal.toString());
+        editor.putString("apr",aprVal.toString());
+        editor.putString("may",mayVal.toString());
+        editor.putString("jun",junVal.toString());
+        editor.putString("jul",julVal.toString());
+        editor.putString("aug",augVal.toString());
+        editor.putString("sep",sepVal.toString());
+        editor.putString("oct",octVal.toString());
+        editor.putString("nov",novVal.toString());
+        editor.putString("dec",decVal.toString());
+        editor.apply();
     }
 }

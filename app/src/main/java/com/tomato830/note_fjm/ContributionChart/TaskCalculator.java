@@ -178,7 +178,7 @@ public class TaskCalculator {
         }
     }
 
-//Method to calculate the contributions for the whole year
+    //Method to calculate the contributions for the whole year
 
     public void calculate(final ArrayList<Integer> jan,
                           final ArrayList<Integer> feb, final ArrayList<Integer> mar,

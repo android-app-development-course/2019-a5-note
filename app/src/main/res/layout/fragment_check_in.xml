@@ -73,9 +73,10 @@
             android:layout_margin="5dp">
 
             <TextView
+                android:id="@+id/showContribution"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12月已完成12个任务"
+                android:text="12月已获得12个贡献点"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"/>
 
