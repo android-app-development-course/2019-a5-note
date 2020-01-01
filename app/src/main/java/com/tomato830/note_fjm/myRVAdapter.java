@@ -1,5 +1,6 @@
 package com.tomato830.note_fjm;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -45,22 +46,35 @@ public class myRVAdapter extends RecyclerView.Adapter<myRVAdapter.myTVHolder> {
         //holder.checkBox.setTag(position);
         //holder.item_titile.setText(mArray[position]);
 
+<<<<<<< HEAD
         //此处待完成
         MySQLiteHelper helper = new MySQLiteHelper(mContext,1);
         SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
+=======
+        MySQLiteHelper helper = new MySQLiteHelper(mContext,1);;
+        final SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
+>>>>>>> c62ecc14ccf84c6b881ab096e087f0eca4a2a873
         holder.item_titile.setText(mArray.get(position).getTitle());
         holder.item_body.setText(mArray.get(position).getContent());
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd|HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd|HH:mm");
         holder.item_time.setText(sdf.format(mArray.get(position).getCreationTime().getTime()));
         Log.v("note生成时间",sdf.format(mArray.get(position).getDeadline().getTime()));
+        //救命！我懵逼了：在todo中勾选的item在下一次登入应用时时才能在finished中显示
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-             //   int pos = (int) holder.checkBox.getTag();
+                //令mArray的 属性 isDone 变为true
                 mArray.get(position).setDone(true);
+                //将影响记录入数据库中,修改属性isDone=1
+                //获取 上述中 isDone变为true的 表项的id号
 
-        }
+                ContentValues values = new ContentValues();
+                values.put("isDone", "1");
+                String[] whereArgs = {String.valueOf(mArray.get(position).getId())};//获取此表项的id
+
+                sqLiteDatabase.update("todolist",values,"id=?",whereArgs);
+            }
         });
     }
 

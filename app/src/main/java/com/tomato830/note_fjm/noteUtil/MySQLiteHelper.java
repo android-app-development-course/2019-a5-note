@@ -12,6 +12,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     static final String DATABASENAME="DailyNote.db";
 
+
     //默认构造函数
     //游标工厂一般为空
     //数据库名为DailyNote.db
