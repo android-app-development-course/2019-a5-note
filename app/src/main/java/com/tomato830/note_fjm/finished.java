@@ -140,7 +140,8 @@ public class finished extends Fragment {
                 calendar2.setTime(date2);
                 nt.setDeadline(calendar2);
 
-                //取出isDone
+                //取出isDone,此处不用判断
+                /*
                 if(Integer.valueOf(cursor.getString(cursor.getColumnIndex("isDone"))) == 1){
                     nt.setDone(true);
                 }
@@ -148,12 +149,15 @@ public class finished extends Fragment {
                     nt.setDone(false);
                 }
 
+                 */
+                nt.setDone(true);
+
                 //取出isNotice
                 if(Integer.valueOf(cursor.getString(cursor.getColumnIndex("isNotice"))) == 1){
-                    nt.setDone(true);
+                    nt.setNotice(true);
                 }
                 else {
-                    nt.setDone(false);
+                    nt.setNotice(false);
                 }
                 note_list.add(nt);
 
@@ -174,6 +178,7 @@ public class finished extends Fragment {
 
         //为recyclerView设置适配器
         recyclerone.setAdapter(new myRVAdapter(getContext(),note_list));
+        Log.v("已完成读取了",note_list.size()+"个note");
 
         //向todo统一标准
         stringIntegerHashMap.put(SpacesItemDecoration.TOP_DECORATION,15);

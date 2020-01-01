@@ -104,11 +104,17 @@ public class add_todo extends AppCompatActivity {
                 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd-HH-mm");
                 values.put("creationTime",sdf.format(nt.getCreationTime().getTime()));
                 values.put("deadline",sdf.format(nt.getDeadline().getTime()));
-                if (nt.isDone()){
+
+                /*if (nt.isDone()){
                     values.put("isDone",1);
                 } else {
                     values.put("isDone",0);
                 }
+
+                 */
+                //刚创建的全部未完成
+                values.put("isDone",0);
+
                 if (nt.isNotice()){
                     values.put("isNotice",1);
                 } else {

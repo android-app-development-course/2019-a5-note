@@ -42,40 +42,50 @@ public class myRVAdapter extends RecyclerView.Adapter<myRVAdapter.myTVHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myTVHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final myTVHolder holder, final int position) {
         //holder.checkBox.setTag(position);
         //holder.item_titile.setText(mArray[position]);
 
-<<<<<<< HEAD
-        //此处待完成
+
         MySQLiteHelper helper = new MySQLiteHelper(mContext,1);
-        SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
-=======
-        MySQLiteHelper helper = new MySQLiteHelper(mContext,1);;
         final SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
->>>>>>> c62ecc14ccf84c6b881ab096e087f0eca4a2a873
+
         holder.item_titile.setText(mArray.get(position).getTitle());
         holder.item_body.setText(mArray.get(position).getContent());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd|HH:mm");
         holder.item_time.setText(sdf.format(mArray.get(position).getCreationTime().getTime()));
-        Log.v("note生成时间",sdf.format(mArray.get(position).getDeadline().getTime()));
+
         //救命！我懵逼了：在todo中勾选的item在下一次登入应用时时才能在finished中显示
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //令mArray的 属性 isDone 变为true
-                mArray.get(position).setDone(true);
-                //将影响记录入数据库中,修改属性isDone=1
-                //获取 上述中 isDone变为true的 表项的id号
-
                 ContentValues values = new ContentValues();
-                values.put("isDone", "1");
+
+                if (mArray.get(position).isDone()){//点击之后改变,编成相反的
+                    values.put("isDone", "0");
+                    mArray.get(position).setDone(false);
+
+                } else {
+                    values.put("isDone", "1");
+                    mArray.get(position).setDone(true);
+
+                }
                 String[] whereArgs = {String.valueOf(mArray.get(position).getId())};//获取此表项的id
 
+                //将此项从list中删除
+                mArray.remove(position);
+                //更新数据库
                 sqLiteDatabase.update("todolist",values,"id=?",whereArgs);
+                //更新recyclerView
+                notifyItemRemoved(position);//显示删除动画
+                notifyItemRangeChanged(position,mArray.size()-position);//修改mArray中数据的相对位置
             }
         });
+
+        if (mArray.get(position).isDone()){//在已完成界面,如果完成就打上勾
+            holder.checkBox.setChecked(true);
+        }
     }
 
 
