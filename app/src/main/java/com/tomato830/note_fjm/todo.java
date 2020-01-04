@@ -13,6 +13,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -71,7 +72,7 @@ public class todo extends Fragment {
     RelativeLayout todo_sort_relativelayout;
     MySQLiteHelper mySQLiteHelper;
     ArrayList<note> note_list;
-
+    SwipeRefreshLayout refreshLayout;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         //每个记录之间的间隔
@@ -84,86 +85,7 @@ public class todo extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //读取全部note
-        note_list = new ArrayList<>();
-        HashSet<String> tag_set = new HashSet<>();
-        mySQLiteHelper = new MySQLiteHelper(getContext(),1);
-        SQLiteDatabase sqLiteDatabase = mySQLiteHelper.getReadableDatabase();
-
-        //取出所有未完成的note
-        Cursor cursor = sqLiteDatabase.query("todolist",null,"isDone=0",null,null,null,null);
-        //找到了有未完成的note
-        if(cursor.moveToFirst()){
-
-            note nt;
-            while (!cursor.isAfterLast()){
-                nt = new note();
-                //取出id,标题,内容
-                nt.setId(Integer.valueOf(cursor.getString(cursor.getColumnIndex("id"))));
-                nt.setTitle(cursor.getString(cursor.getColumnIndex("title")));
-                nt.setContent(cursor.getString(cursor.getColumnIndex("content")));
-
-                //取出tag,将string转为hashSet
-                tag_set=note.string2HashSet(cursor.getString(cursor.getColumnIndex("tag")));
-                nt.setTag(tag_set);
-
-                //取出creationTime
-                DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd-HH-mm");//取出年月日时分
-                Date date1 = null;
-                try {
-                    date1 = dateFormat1.parse(cursor.getString(cursor.getColumnIndex("creationTime")));
-                    Log.v("creationTime",cursor.getString(cursor.getColumnIndex("creationTime")));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                GregorianCalendar calendar1 = new GregorianCalendar();
-                calendar1.setTime(date1);
-                nt.setCreationTime(calendar1);
-
-                //取出deadline
-                DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
-                Date date2 = null;
-                try {
-                    date2 = dateFormat2.parse(cursor.getString(cursor.getColumnIndex("deadline")));
-                    Log.v("deadline",cursor.getString(cursor.getColumnIndex("deadline")));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                GregorianCalendar calendar2 = new GregorianCalendar();
-                calendar2.setTime(date2);
-                nt.setDeadline(calendar2);
-
-                //取出isDone,此处不用判断
-                /*
-                if(Integer.valueOf(cursor.getString(cursor.getColumnIndex("isDone"))) == 1){
-                    nt.setDone(true);
-                }
-                else {
-                    nt.setDone(false);
-                }
-
-                 */
-                nt.setDone(false);
-
-                //取出isNotice
-                if(Integer.valueOf(cursor.getString(cursor.getColumnIndex("isNotice"))) == 1){
-                    nt.setNotice(true);
-                }
-                else {
-                    nt.setNotice(false);
-                }
-                note_list.add(nt);
-
-                //游标移到下一个
-                cursor.moveToNext();
-            }
-        }
-        //查看读取了多少个note
-        Log.v("todo","读取note"+note_list.size()+"个");
-
-        //完成操作,关闭游标和数据库
-        cursor.close();
-        sqLiteDatabase.close();
-
+        note_list = queryAll();
         //为recyclerView设置适配器
         recyclerView.setAdapter(new myRVAdapter(getContext(),note_list));
 
@@ -191,6 +113,17 @@ public class todo extends Fragment {
             public void onClick(View v) {
                Intent intent = new Intent(getActivity(),add_todo.class);
                startActivity(intent);
+            }
+        });
+
+        refreshLayout=(SwipeRefreshLayout) getActivity().findViewById(R.id.todo_refresh);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                note_list.clear();
+                note_list.addAll(queryAll());
+                //recyclerView.getAdapter().notifyItemRangeChanged(0,note_list.size());
+                recyclerView.getAdapter().notifyDataSetChanged();
             }
         });
 
@@ -232,5 +165,93 @@ public class todo extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id =item.getItemId();
         return super.onOptionsItemSelected(item);
+    }
+
+    private ArrayList<note> queryAll() {   //查询所有未完成的note,isDone=0
+
+        //读取全部note
+        ArrayList<note> note_list = new ArrayList<>();
+        HashSet<String> tag_set = new HashSet<>();
+        mySQLiteHelper = new MySQLiteHelper(getContext(),1);
+        SQLiteDatabase sqLiteDatabase = mySQLiteHelper.getReadableDatabase();
+
+        //取出所有未完成的note
+        Cursor cursor = sqLiteDatabase.query("todolist",null,"isDone=0",null,null,null,null);
+        //找到了有未完成的note
+        if(cursor.moveToFirst()){
+
+            note nt;
+            while (!cursor.isAfterLast()){
+                nt = new note();
+                //取出id,标题,内容
+                nt.setId(Integer.valueOf(cursor.getString(cursor.getColumnIndex("id"))));
+                nt.setTitle(cursor.getString(cursor.getColumnIndex("title")));
+                nt.setContent(cursor.getString(cursor.getColumnIndex("content")));
+
+                //取出tag,将string转为hashSet
+                tag_set=note.string2HashSet(cursor.getString(cursor.getColumnIndex("tag")));
+                nt.setTag(tag_set);
+
+                //取出creationTime
+                DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd-HH-mm");//取出年月日时分
+                Date date1 = null;
+                try {
+                    date1 = dateFormat1.parse(cursor.getString(cursor.getColumnIndex("creationTime")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                GregorianCalendar calendar1 = new GregorianCalendar();
+                calendar1.setTime(date1);
+                nt.setCreationTime(calendar1);
+
+                //取出deadline
+                DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+                Date date2 = null;
+                try {
+                    date2 = dateFormat2.parse(cursor.getString(cursor.getColumnIndex("deadline")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                GregorianCalendar calendar2 = new GregorianCalendar();
+                calendar2.setTime(date2);
+                nt.setDeadline(calendar2);
+
+                //取出isDone,此处不用判断
+                /*
+                if(Integer.valueOf(cursor.getString(cursor.getColumnIndex("isDone"))) == 1){
+                    nt.setDone(true);
+                }
+                else {
+                    nt.setDone(false);
+                }
+
+                 */
+                nt.setDone(false);
+
+                //取出isNotice
+                if(Integer.valueOf(cursor.getString(cursor.getColumnIndex("isNotice"))) == 1){
+                    nt.setNotice(true);
+                }
+                else {
+                    nt.setNotice(false);
+                }
+                note_list.add(nt);
+
+                //游标移到下一个
+                cursor.moveToNext();
+            }
+        }
+        //查看读取了多少个note
+        Log.v("todo","读取note"+note_list.size()+"个");
+
+        //完成操作,关闭游标和数据库
+        cursor.close();
+        sqLiteDatabase.close();
+
+        //关闭更新进度条
+        if (refreshLayout!=null)
+            refreshLayout.setRefreshing(false);
+
+        return note_list;
     }
 }

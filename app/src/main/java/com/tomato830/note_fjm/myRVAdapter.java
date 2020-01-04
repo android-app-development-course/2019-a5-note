@@ -55,6 +55,12 @@ public class myRVAdapter extends RecyclerView.Adapter<myRVAdapter.myTVHolder> {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd|HH:mm");
         holder.item_time.setText(sdf.format(mArray.get(position).getCreationTime().getTime()));
 
+        if (mArray.get(position).isDone()){//在已完成界面,如果完成就打上勾,打勾选项在监听器前
+            holder.checkBox.setChecked(true);
+        } else {
+            holder.checkBox.setChecked(false);
+        }
+
         //救命！我懵逼了：在todo中勾选的item在下一次登入应用时时才能在finished中显示
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,13 +85,12 @@ public class myRVAdapter extends RecyclerView.Adapter<myRVAdapter.myTVHolder> {
                 sqLiteDatabase.update("todolist",values,"id=?",whereArgs);
                 //更新recyclerView
                 notifyItemRemoved(position);//显示删除动画
+                //notifyDataSetChanged();
                 notifyItemRangeChanged(position,mArray.size()-position);//修改mArray中数据的相对位置
             }
         });
 
-        if (mArray.get(position).isDone()){//在已完成界面,如果完成就打上勾
-            holder.checkBox.setChecked(true);
-        }
+
     }
 
 

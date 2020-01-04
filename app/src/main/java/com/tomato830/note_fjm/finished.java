@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
@@ -64,7 +65,7 @@ public class finished extends Fragment {
     TextView textView;
     TextView number;
     MySQLiteHelper mySQLiteHelper;
-
+    Button finished_refresh;
 
 
     @Override
@@ -83,19 +84,58 @@ public class finished extends Fragment {
         recyclerone = getActivity().findViewById(R.id.recycler_one);
         recyclerone.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        //初始化
+        checkBox = getActivity().findViewById(R.id.finished_to_check);
+        number = getActivity().findViewById(R.id.deadline);
+        finished_refresh=(Button) getActivity().findViewById(R.id.finished_refresh);
+        finished_refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                note_list.clear();
+                note_list.addAll(queryAll());
+                recyclerone.getAdapter().notifyDataSetChanged();
+            }
+        });
+
         //查询语句从SQLite中获取被勾选的item。
         //加入到note_list列表中.
-        note_list = new ArrayList<>();
+        note_list = queryAll();
+
+        //为recyclerView设置适配器
+        recyclerone.setAdapter(new myRVAdapter(getContext(),note_list));
+
+        //向todo统一标准
+        stringIntegerHashMap.put(SpacesItemDecoration.TOP_DECORATION,15);
+        recyclerone.addItemDecoration(new SpacesItemDecoration(stringIntegerHashMap));
+        stringIntegerHashMap.put(SpacesItemDecoration.BOTTOM_DECORATION,15);
+        recyclerone.addItemDecoration(new SpacesItemDecoration(stringIntegerHashMap));
+        todo_sort_relativelayout = getActivity().findViewById(R.id.todo_sort_relativelayout);
+    }
+
+
+    //排序未实装
+    private void ddlsort(){
+        //按截止日期排序
+    }
+
+    private void fshsort(){
+        //按完成顺序
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id =item.getItemId();
+        return super.onOptionsItemSelected(item);
+    }
+
+    private ArrayList<note> queryAll(){ //查询所有已完成note,isDone=1;
+
+        //查询语句从SQLite中获取被勾选的item。
+        //加入到note_list列表中.
+        ArrayList<note> note_list = new ArrayList<>();
         mySQLiteHelper = new MySQLiteHelper(getContext(),1);
         HashSet<String> tag_set = new HashSet<>();
         SQLiteDatabase sqLiteDatabase = mySQLiteHelper.getReadableDatabase();  //获取只读SQLiteDatabase对象
-
-
-
-        //设置状态变化监听将被选中的item的属性中的isDone改为1
-        //不知道是不是需要新建一个文件，总之先在这里试试
-        checkBox = getActivity().findViewById(R.id.finished_to_check);
-
 
         //取出已完成的note
         Cursor cursor = sqLiteDatabase.query("todolist",null,"isDone=1",null,null,null,null);
@@ -169,39 +209,15 @@ public class finished extends Fragment {
         Log.v("finished","读取note"+note_list.size()+"个");
 
         //在狗牌中展示数字
-        number = getActivity().findViewById(R.id.deadline);
         number.setText("今日完成事件："+note_list.size());
 
         //完成操作,关闭游标和数据库
         cursor.close();
         sqLiteDatabase.close();
 
-        //为recyclerView设置适配器
-        recyclerone.setAdapter(new myRVAdapter(getContext(),note_list));
-        Log.v("已完成读取了",note_list.size()+"个note");
+        //刷新成功
+        //refreshlayout.setFresh(false);
 
-        //向todo统一标准
-        stringIntegerHashMap.put(SpacesItemDecoration.TOP_DECORATION,15);
-        recyclerone.addItemDecoration(new SpacesItemDecoration(stringIntegerHashMap));
-        stringIntegerHashMap.put(SpacesItemDecoration.BOTTOM_DECORATION,15);
-        recyclerone.addItemDecoration(new SpacesItemDecoration(stringIntegerHashMap));
-        todo_sort_relativelayout = getActivity().findViewById(R.id.todo_sort_relativelayout);
+        return note_list;
     }
-
-
-    //排序未实装
-    private void ddlsort(){
-        //按截止日期排序
-    }
-
-    private void fshsort(){
-        //按完成顺序
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id =item.getItemId();
-        return super.onOptionsItemSelected(item);
-    }
-
 }
